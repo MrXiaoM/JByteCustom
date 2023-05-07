@@ -21,7 +21,7 @@ public class LanguageRes {
 
     public LanguageRes() {
         JByteCustom.LOGGER.log("Reading Language XML..");
-        this.readXML(map, getXML());
+        this.readXML(map, getXML(getLanguage()));
         this.readXML(defaultMap, LanguageRes.class.getResourceAsStream("/locale/en.xml"));
         JByteCustom.LOGGER.log("Successfully loaded " + map.size() + " local resources and " + defaultMap.size() + " default resources");
         this.fixUnicodeSupport();
@@ -76,8 +76,8 @@ public class LanguageRes {
         }
     }
 
-    private InputStream getXML() {
-        return LanguageRes.class.getResourceAsStream("/locale/en.xml");
+    private InputStream getXML(String language) {
+        return LanguageRes.class.getResourceAsStream("/locale/" language ".xml");
 
     }
 
