@@ -77,7 +77,7 @@ public class LanguageRes {
     }
 
     private InputStream getXML(String language) {
-        return LanguageRes.class.getResourceAsStream("/locale/" language ".xml");
+        return LanguageRes.class.getResourceAsStream("/locale/" + language + ".xml");
 
     }
 
