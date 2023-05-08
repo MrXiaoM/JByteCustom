@@ -30,6 +30,7 @@ import org.jetbrains.java.decompiler.util.TextBuffer;
 import java.io.IOException;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ClassesProcessor implements CodeConstants {
   public static final int AVERAGE_CLASS_SIZE = 16 * 1024;
@@ -252,7 +253,7 @@ public class ClassesProcessor implements CodeConstants {
 
     ConstantPool pool = enclosingCl.getPool();
 
-    int refCounter = 0;
+    AtomicInteger refCounter = new AtomicInteger();
     boolean refNotNew = false;
 
     StructEnclosingMethodAttribute attribute = cl.getAttribute(StructGeneralAttribute.ATTRIBUTE_ENCLOSING_METHOD);
@@ -273,20 +274,26 @@ public class ClassesProcessor implements CodeConstants {
           for (int i = 0; i < len; i++) {
             Instruction instr = seq.getInstr(i);
             switch (instr.opcode) {
-              case opc_checkcast, opc_instanceof -> {
+              case opc_checkcast:
+                case opc_instanceof : {
                 if (cl.qualifiedName.equals(pool.getPrimitiveConstant(instr.operand(0)).getString())) {
-                  refCounter++;
+                  refCounter.getAndIncrement();
                   refNotNew = true;
                 }
               }
-              case opc_new, opc_anewarray, opc_multianewarray -> {
+                break;
+              case opc_new:
+              case opc_anewarray:
+              case opc_multianewarray: {
                 if (cl.qualifiedName.equals(pool.getPrimitiveConstant(instr.operand(0)).getString())) {
-                  refCounter++;
+                  refCounter.getAndIncrement();
                 }
               }
-              case opc_getstatic, opc_putstatic -> {
+              break;
+              case opc_getstatic:
+              case opc_putstatic:  {
                 if (cl.qualifiedName.equals(pool.getLinkConstant(instr.operand(0)).classname)) {
-                  refCounter++;
+                  refCounter.getAndIncrement();
                   refNotNew = true;
                 }
               }
@@ -303,7 +310,7 @@ public class ClassesProcessor implements CodeConstants {
         return false;
       }
 
-      if (refCounter > 1 || refNotNew) {
+      if (refCounter.get() > 1 || refNotNew) {
         String message = "Inconsistent references to the class '" + cl.qualifiedName + "' which is supposed to be anonymous";
         DecompilerContext.getLogger().writeMessage(message, IFernflowerLogger.Severity.WARN);
         return false;
