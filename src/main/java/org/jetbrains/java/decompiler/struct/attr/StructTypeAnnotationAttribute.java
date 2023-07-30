@@ -37,15 +37,15 @@ public class StructTypeAnnotationAttribute extends StructGeneralAttribute {
     TargetInfo targetInfo = switch (targetType) {
       case TypeAnnotation.CLASS_TYPE_PARAMETER, TypeAnnotation.METHOD_TYPE_PARAMETER ->
         new TargetInfo.TypeParameterTarget(data.readUnsignedByte());
-      case TypeAnnotation.SUPER_TYPE_REFERENCE ->
+      break; case TypeAnnotation.SUPER_TYPE_REFERENCE :
         new TargetInfo.SupertypeTarget(data.readUnsignedShort());
       case TypeAnnotation.CLASS_TYPE_PARAMETER_BOUND, TypeAnnotation.METHOD_TYPE_PARAMETER_BOUND ->
         new TargetInfo.TypeParameterBoundTarget(data.readUnsignedByte(), data.readUnsignedByte());
       case TypeAnnotation.FIELD, TypeAnnotation.METHOD_RETURN_TYPE, TypeAnnotation.METHOD_RECEIVER ->
         new TargetInfo.EmptyTarget();
-      case TypeAnnotation.METHOD_PARAMETER ->
+      break; case TypeAnnotation.METHOD_PARAMETER :
         new TargetInfo.FormalParameterTarget(data.readUnsignedByte());
-      case TypeAnnotation.THROWS_REFERENCE ->
+      break; case TypeAnnotation.THROWS_REFERENCE :
         new TargetInfo.ThrowsTarget(data.readUnsignedShort());
       case TypeAnnotation.LOCAL_VARIABLE, TypeAnnotation.RESOURCE_VARIABLE -> {
         int tableLength = data.readUnsignedShort();
@@ -55,7 +55,7 @@ public class StructTypeAnnotationAttribute extends StructGeneralAttribute {
         }
         yield new TargetInfo.LocalvarTarget(offsets);
       }
-      case TypeAnnotation.CATCH_CLAUSE ->
+      break; case TypeAnnotation.CATCH_CLAUSE :
         new TargetInfo.CatchTarget(data.readUnsignedShort());
       case TypeAnnotation.EXPR_INSTANCEOF, TypeAnnotation.EXPR_NEW, TypeAnnotation.EXPR_CONSTRUCTOR_REF, TypeAnnotation.EXPR_METHOD_REF ->
         new TargetInfo.OffsetTarget(data.readUnsignedShort());

@@ -47,6 +47,7 @@ public class DecompilerTab extends JPanel {
         for (int i = 0; i < 3; i++)
             rs.add(new JPanel());
         JComboBox<Decompilers> decompilerCombo = new JComboBox<Decompilers>(Decompilers.values());
+        decompilerCombo.setSize(100, decompilerCombo.getHeight());
 
         Discord.currentDecompiler = decompiler.getName() + " " + decompiler.getVersion();
         Discord.updateDecompiler(Discord.currentDecompiler);
@@ -67,6 +68,7 @@ public class DecompilerTab extends JPanel {
         rs.add(decompilerCombo);
 
         JButton reload = new JButton(JByteCustom.res.getResource("reload"));
+        reload.setSize(100, reload.getHeight());
         reload.addActionListener(new ActionListener() {
 
             @Override
@@ -76,6 +78,7 @@ public class DecompilerTab extends JPanel {
         });
 
         JButton extract = new JButton("Extract");
+        extract.setSize(100, extract.getHeight());
         extract.addActionListener(e -> {
             jbm.extractFile(
                     System.getProperty("user.home") + File.separator + "Documents",

@@ -766,7 +766,8 @@ public class ClassWriter {
             String typeName;
             boolean isVarArg = i == lastVisibleParameterIndex && mt.hasModifier(CodeConstants.ACC_VARARGS);
             List<TypeAnnotation> typeParamAnnotations = TargetInfo.FormalParameterTarget.extract(typeAnnotations, i);
-            if (paramType instanceof GenericType genParamType) {
+            if (paramType instanceof GenericType) {
+                GenericType genParamType = (GenericType) paramType;
               isVarArg &= genParamType.getArrayDim() > 0;
               if (isVarArg) {
                 genParamType = genParamType.decreaseArrayDim();
@@ -1127,15 +1128,17 @@ public class ClassWriter {
     buffer.append("// $FF: renamed from: ");
 
     switch (type) {
-      case CLASS -> buffer.append(ExprProcessor.buildJavaClassName(oldName));
-      case FIELD -> {
+      case CLASS : buffer.append(ExprProcessor.buildJavaClassName(oldName));
+      break;
+      case FIELD : {
         String[] fParts = oldName.split(" ");
         FieldDescriptor fd = FieldDescriptor.parseDescriptor(fParts[2]);
         buffer.append(fParts[1]);
         buffer.append(' ');
         buffer.append(getTypePrintOut(fd.type));
       }
-      default -> {
+      break;
+      default : {
         String[] mParts = oldName.split(" ");
         MethodDescriptor md = MethodDescriptor.parseDescriptor(mParts[2]);
         buffer.append(mParts[1]);

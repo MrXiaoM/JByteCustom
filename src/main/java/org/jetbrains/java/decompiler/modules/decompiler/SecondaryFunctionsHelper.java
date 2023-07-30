@@ -121,7 +121,7 @@ public final class SecondaryFunctionsHelper {
       FunctionExprent fexpr = (FunctionExprent)exprent;
 
       switch (fexpr.getFuncType()) {
-        case FunctionExprent.FUNCTION_BOOL_NOT -> {
+        break; case FunctionExprent.FUNCTION_BOOL_NOT : {
 
           Exprent retparam = propagateBoolNot(fexpr);
 
@@ -197,12 +197,12 @@ public final class SecondaryFunctionsHelper {
     }
 
     switch (exprent.type) {
-      case Exprent.EXPRENT_FUNCTION -> {
+      break; case Exprent.EXPRENT_FUNCTION : {
         FunctionExprent fexpr = (FunctionExprent)exprent;
         List<Exprent> lstOperands = fexpr.getLstOperands();
 
         switch (fexpr.getFuncType()) {
-          case FunctionExprent.FUNCTION_XOR -> {
+          break; case FunctionExprent.FUNCTION_XOR : {
             for (int i = 0; i < 2; i++) {
               Exprent operand = lstOperands.get(i);
               VarType operandtype = operand.getExprType();
@@ -247,7 +247,7 @@ public final class SecondaryFunctionsHelper {
               }
             }
           }
-          case FunctionExprent.FUNCTION_BOOL_NOT -> {
+          break; case FunctionExprent.FUNCTION_BOOL_NOT : {
             if (lstOperands.get(0).type == Exprent.EXPRENT_CONST) {
               int val = ((ConstExprent)lstOperands.get(0)).getIntValue();
               if (val == 0) {
@@ -258,7 +258,7 @@ public final class SecondaryFunctionsHelper {
               }
             }
           }
-          case FunctionExprent.FUNCTION_IIF -> {
+          break; case FunctionExprent.FUNCTION_IIF : {
             Exprent expr1 = lstOperands.get(1);
             Exprent expr2 = lstOperands.get(2);
 
@@ -302,7 +302,7 @@ public final class SecondaryFunctionsHelper {
           }
         }
       }
-      case Exprent.EXPRENT_ASSIGNMENT -> { // check for conditional assignment
+      break; case Exprent.EXPRENT_ASSIGNMENT : { // check for conditional assignment
         AssignmentExprent asexpr = (AssignmentExprent)exprent;
         Exprent right = asexpr.getRight();
         Exprent left = asexpr.getLeft();
@@ -354,7 +354,7 @@ public final class SecondaryFunctionsHelper {
           }
         }
       }
-      case Exprent.EXPRENT_INVOCATION -> {
+      break; case Exprent.EXPRENT_INVOCATION : {
         if (!statement_level) { // simplify if exprent is a real expression. The opposite case is pretty absurd, can still happen however (and happened at least once).
           Exprent retexpr = ConcatenationHelper.contractStringConcat(exprent);
           if (!exprent.equals(retexpr)) {

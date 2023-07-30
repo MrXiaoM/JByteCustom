@@ -126,7 +126,7 @@ public class StructMethod extends StructMember {
       }
       else {
         switch (opcode) {
-          case opc_bipush -> {
+          break; case opc_bipush : {
             operands.add((int)in.readByte());
             i++;
           }
@@ -153,7 +153,7 @@ public class StructMethod extends StructMember {
               group = GROUP_INVOCATION;
             }
           }
-          case opc_invokedynamic -> {
+          break; case opc_invokedynamic : {
             if (bytecodeVersion >= CodeConstants.BYTECODE_JAVA_7) { // instruction unused in Java 6 and before
               operands.add(in.readUnsignedShort());
               in.discard(2);
@@ -175,7 +175,7 @@ public class StructMethod extends StructMember {
               group = GROUP_RETURN;
             }
           }
-          case opc_iinc -> {
+          break; case opc_iinc : {
             if (wide) {
               operands.add(in.readUnsignedShort());
               operands.add((int)in.readShort());
@@ -193,19 +193,19 @@ public class StructMethod extends StructMember {
             group = GROUP_JUMP;
             i += 4;
           }
-          case opc_invokeinterface -> {
+          break; case opc_invokeinterface : {
             operands.add(in.readUnsignedShort());
             operands.add(in.readUnsignedByte());
             in.discard(1);
             group = GROUP_INVOCATION;
             i += 4;
           }
-          case opc_multianewarray -> {
+          break; case opc_multianewarray : {
             operands.add(in.readUnsignedShort());
             operands.add(in.readUnsignedByte());
             i += 3;
           }
-          case opc_tableswitch -> {
+          break; case opc_tableswitch : {
             in.discard((4 - (i + 1) % 4) % 4);
             i += ((4 - (i + 1) % 4) % 4); // padding
             operands.add(in.readInt());
@@ -223,7 +223,7 @@ public class StructMethod extends StructMember {
             }
             group = GROUP_SWITCH;
           }
-          case opc_lookupswitch -> {
+          break; case opc_lookupswitch : {
             in.discard((4 - (i + 1) % 4) % 4);
             i += ((4 - (i + 1) % 4) % 4); // padding
             operands.add(in.readInt());

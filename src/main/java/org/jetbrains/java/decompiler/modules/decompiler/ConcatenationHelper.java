@@ -63,7 +63,7 @@ public final class ConcatenationHelper {
       int found = 0;
 
       switch (exprTmp.type) {
-        case Exprent.EXPRENT_INVOCATION -> {
+        case Exprent.EXPRENT_INVOCATION : {
           InvocationExprent iex = (InvocationExprent)exprTmp;
           if (isAppendConcat(iex, cltype)) {
             lstOperands.add(0, iex.getParameters().get(0));
@@ -71,7 +71,7 @@ public final class ConcatenationHelper {
             found = 1;
           }
         }
-        case Exprent.EXPRENT_NEW -> {
+        break; case Exprent.EXPRENT_NEW : {
           NewExprent nex = (NewExprent)exprTmp;
           if (isNewConcat(nex, cltype)) {
             VarType[] params = nex.getConstructor().getDescriptor().params;
@@ -173,7 +173,8 @@ public final class ConcatenationHelper {
             if (c == TAG_ARG) {
               Exprent exprent = parameters.get(parameterId++);
 
-              if ((exprent instanceof VarExprent varExprent) && res.isEmpty()) {
+              if ((exprent instanceof VarExprent) && res.isEmpty()) {
+                VarExprent varExprent = (VarExprent) exprent;
 
                 if (!VarType.VARTYPE_STRING.equals(varExprent.getVarType())) {
                   // First item of concatenation is a variable and variable's type is not a String.

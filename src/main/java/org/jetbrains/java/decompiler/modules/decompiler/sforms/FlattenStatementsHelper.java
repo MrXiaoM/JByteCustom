@@ -96,7 +96,7 @@ public class FlattenStatementsHelper {
       if (statEntry.succEdges == null) {
 
         switch (stat.type) {
-          case BASIC_BLOCK -> {
+          break; case BASIC_BLOCK : {
             node = new DirectNode(DirectNodeType.DIRECT, stat, (BasicBlockStatement)stat);
             if (stat.getExprents() != null) {
               node.exprents = stat.getExprents();
@@ -153,7 +153,7 @@ public class FlattenStatementsHelper {
 
             lstStackStatements.addAll(0, lst);
           }
-          case DO -> {
+          break; case DO : {
             if (statementBreakIndex == 0) {
               statEntry.statementIndex = 1;
               lstStackStatements.addFirst(statEntry);
@@ -201,7 +201,7 @@ public class FlattenStatementsHelper {
                 }
                 sourcenode = node;
               }
-              case FOR -> {
+              break; case FOR : {
                 DirectNode nodeinit = new DirectNode(DirectNodeType.INIT, stat, stat.id + "_init");
                 if (dostat.getInitExprent() != null) {
                   nodeinit.exprents = dostat.getInitExprentList();
@@ -246,9 +246,9 @@ public class FlattenStatementsHelper {
 
             if (statementBreakIndex <= statsize) {
               List<Exprent> tailexprlst = switch (stat.type) {
-                case SYNCHRONIZED -> ((SynchronizedStatement)stat).getHeadexprentList();
-                case SWITCH -> ((SwitchStatement)stat).getHeadExprentList();
-                case IF -> ((IfStatement)stat).getHeadexprentList();
+                break; case SYNCHRONIZED : ((SynchronizedStatement)stat).getHeadexprentList();
+                break; case SWITCH : ((SwitchStatement)stat).getHeadExprentList();
+                break; case IF : ((IfStatement)stat).getHeadexprentList();
                 default -> null;
               };
 

@@ -127,21 +127,21 @@ public class VarType implements Type {  // TODO: optimize switch
 
   private static String getChar(int type) {
     return switch (type) {
-      case CodeConstants.TYPE_BYTE -> "B";
-      case CodeConstants.TYPE_CHAR -> "C";
-      case CodeConstants.TYPE_DOUBLE -> "D";
-      case CodeConstants.TYPE_FLOAT -> "F";
-      case CodeConstants.TYPE_INT -> "I";
-      case CodeConstants.TYPE_LONG -> "J";
-      case CodeConstants.TYPE_SHORT -> "S";
-      case CodeConstants.TYPE_BOOLEAN -> "Z";
-      case CodeConstants.TYPE_VOID -> "V";
-      case CodeConstants.TYPE_GROUP2EMPTY -> "G";
-      case CodeConstants.TYPE_NOTINITIALIZED -> "N";
-      case CodeConstants.TYPE_ADDRESS -> "A";
-      case CodeConstants.TYPE_BYTECHAR -> "X";
-      case CodeConstants.TYPE_SHORTCHAR -> "Y";
-      case CodeConstants.TYPE_UNKNOWN -> "U";
+      break; case CodeConstants.TYPE_BYTE : "B";
+      break; case CodeConstants.TYPE_CHAR : "C";
+      break; case CodeConstants.TYPE_DOUBLE : "D";
+      break; case CodeConstants.TYPE_FLOAT : "F";
+      break; case CodeConstants.TYPE_INT : "I";
+      break; case CodeConstants.TYPE_LONG : "J";
+      break; case CodeConstants.TYPE_SHORT : "S";
+      break; case CodeConstants.TYPE_BOOLEAN : "Z";
+      break; case CodeConstants.TYPE_VOID : "V";
+      break; case CodeConstants.TYPE_GROUP2EMPTY : "G";
+      break; case CodeConstants.TYPE_NOTINITIALIZED : "N";
+      break; case CodeConstants.TYPE_ADDRESS : "A";
+      break; case CodeConstants.TYPE_BYTECHAR : "X";
+      break; case CodeConstants.TYPE_SHORTCHAR : "Y";
+      break; case CodeConstants.TYPE_UNKNOWN : "U";
       case CodeConstants.TYPE_NULL, CodeConstants.TYPE_OBJECT -> null;
       default -> throw new RuntimeException("Invalid type");
     };
@@ -167,10 +167,10 @@ public class VarType implements Type {  // TODO: optimize switch
     return switch (type) {
       case CodeConstants.TYPE_BYTE, CodeConstants.TYPE_BYTECHAR, CodeConstants.TYPE_SHORTCHAR, CodeConstants.TYPE_CHAR,
         CodeConstants.TYPE_SHORT, CodeConstants.TYPE_INT -> CodeConstants.TYPE_FAMILY_INTEGER;
-      case CodeConstants.TYPE_DOUBLE -> CodeConstants.TYPE_FAMILY_DOUBLE;
-      case CodeConstants.TYPE_FLOAT -> CodeConstants.TYPE_FAMILY_FLOAT;
-      case CodeConstants.TYPE_LONG -> CodeConstants.TYPE_FAMILY_LONG;
-      case CodeConstants.TYPE_BOOLEAN -> CodeConstants.TYPE_FAMILY_BOOLEAN;
+      break; case CodeConstants.TYPE_DOUBLE : CodeConstants.TYPE_FAMILY_DOUBLE;
+      break; case CodeConstants.TYPE_FLOAT : CodeConstants.TYPE_FAMILY_FLOAT;
+      break; case CodeConstants.TYPE_LONG : CodeConstants.TYPE_FAMILY_LONG;
+      break; case CodeConstants.TYPE_BOOLEAN : CodeConstants.TYPE_FAMILY_BOOLEAN;
       case CodeConstants.TYPE_NULL, CodeConstants.TYPE_OBJECT -> CodeConstants.TYPE_FAMILY_OBJECT;
       default -> CodeConstants.TYPE_FAMILY_UNKNOWN;
     };
@@ -290,7 +290,7 @@ public class VarType implements Type {  // TODO: optimize switch
     }
     else if (type1.getTypeFamily() == type2.getTypeFamily()) {
       switch (type1.getTypeFamily()) {
-        case CodeConstants.TYPE_FAMILY_INTEGER -> {
+        break; case CodeConstants.TYPE_FAMILY_INTEGER : {
           if ((type1.getType() == CodeConstants.TYPE_CHAR && type2.getType() == CodeConstants.TYPE_SHORT)
               || (type1.getType() == CodeConstants.TYPE_SHORT && type2.getType() == CodeConstants.TYPE_CHAR)) {
             return VARTYPE_SHORTCHAR;
@@ -299,7 +299,7 @@ public class VarType implements Type {  // TODO: optimize switch
             return VARTYPE_BYTECHAR;
           }
         }
-        case CodeConstants.TYPE_FAMILY_OBJECT -> {
+        break; case CodeConstants.TYPE_FAMILY_OBJECT : {
           return VARTYPE_NULL;
         }
       }
@@ -322,7 +322,7 @@ public class VarType implements Type {  // TODO: optimize switch
     }
     else if (type1.getTypeFamily() == type2.getTypeFamily()) {
       switch (type1.getTypeFamily()) {
-        case CodeConstants.TYPE_FAMILY_INTEGER -> {
+        break; case CodeConstants.TYPE_FAMILY_INTEGER : {
           if ((type1.getType() == CodeConstants.TYPE_SHORTCHAR && type2.getType() == CodeConstants.TYPE_BYTE)
               || (type1.getType() == CodeConstants.TYPE_BYTE && type2.getType() == CodeConstants.TYPE_SHORTCHAR)) {
             return VARTYPE_SHORT;
@@ -331,7 +331,7 @@ public class VarType implements Type {  // TODO: optimize switch
             return VARTYPE_INT;
           }
         }
-        case CodeConstants.TYPE_FAMILY_OBJECT -> {
+        break; case CodeConstants.TYPE_FAMILY_OBJECT : {
           return VARTYPE_OBJECT;
         }
       }
@@ -342,13 +342,13 @@ public class VarType implements Type {  // TODO: optimize switch
 
   public static VarType getMinTypeInFamily(int family) {
     return switch (family) {
-      case CodeConstants.TYPE_FAMILY_BOOLEAN -> VARTYPE_BOOLEAN;
-      case CodeConstants.TYPE_FAMILY_INTEGER -> VARTYPE_BYTECHAR;
-      case CodeConstants.TYPE_FAMILY_OBJECT -> VARTYPE_NULL;
-      case CodeConstants.TYPE_FAMILY_FLOAT -> VARTYPE_FLOAT;
-      case CodeConstants.TYPE_FAMILY_LONG -> VARTYPE_LONG;
-      case CodeConstants.TYPE_FAMILY_DOUBLE -> VARTYPE_DOUBLE;
-      case CodeConstants.TYPE_FAMILY_UNKNOWN -> VARTYPE_UNKNOWN;
+      break; case CodeConstants.TYPE_FAMILY_BOOLEAN : VARTYPE_BOOLEAN;
+      break; case CodeConstants.TYPE_FAMILY_INTEGER : VARTYPE_BYTECHAR;
+      break; case CodeConstants.TYPE_FAMILY_OBJECT : VARTYPE_NULL;
+      break; case CodeConstants.TYPE_FAMILY_FLOAT : VARTYPE_FLOAT;
+      break; case CodeConstants.TYPE_FAMILY_LONG : VARTYPE_LONG;
+      break; case CodeConstants.TYPE_FAMILY_DOUBLE : VARTYPE_DOUBLE;
+      break; case CodeConstants.TYPE_FAMILY_UNKNOWN : VARTYPE_UNKNOWN;
       default -> throw new IllegalArgumentException("Invalid type family: " + family);
     };
   }

@@ -77,7 +77,7 @@ public class NestedMemberAccess {
             }
 
             switch (exprCore.type) {
-              case Exprent.EXPRENT_FIELD -> {
+              case Exprent.EXPRENT_FIELD : {
                 FieldExprent fexpr = (FieldExprent)exprCore;
                 if ((parcount == 1 && !fexpr.isStatic()) ||
                     (parcount == 0 && fexpr.isStatic())) {
@@ -89,7 +89,7 @@ public class NestedMemberAccess {
                   }
                 }
               }
-              case Exprent.EXPRENT_VAR -> {  // qualified this
+              break; case Exprent.EXPRENT_VAR : {  // qualified this
                 if (parcount == 1) {
                   // this or final variable
                   if (((VarExprent)exprCore).getIndex() != 0) {
@@ -97,7 +97,7 @@ public class NestedMemberAccess {
                   }
                 }
               }
-              case Exprent.EXPRENT_FUNCTION -> {
+              break; case Exprent.EXPRENT_FUNCTION : {
                 // for now detect only increment/decrement
                 FunctionExprent functionExprent = (FunctionExprent)exprCore;
                 if (functionExprent.getFuncType() >= FunctionExprent.FUNCTION_IMM &&
@@ -107,8 +107,8 @@ public class NestedMemberAccess {
                   }
                 }
               }
-              case Exprent.EXPRENT_INVOCATION -> type = MethodAccess.METHOD;
-              case Exprent.EXPRENT_ASSIGNMENT -> {
+              break; case Exprent.EXPRENT_INVOCATION : type = MethodAccess.METHOD;
+              break; case Exprent.EXPRENT_ASSIGNMENT : {
                 AssignmentExprent asexpr = (AssignmentExprent)exprCore;
                 if (asexpr.getLeft().type == Exprent.EXPRENT_FIELD && asexpr.getRight().type == Exprent.EXPRENT_VAR) {
                   FieldExprent fexpras = (FieldExprent)asexpr.getLeft();
@@ -346,7 +346,7 @@ public class NestedMemberAccess {
     Exprent retexprent = null;
 
     switch (type) {
-      case FIELD_GET -> {
+      case FIELD_GET : {
         ExitExprent exsource = (ExitExprent)source;
         if (exsource.getValue().type == Exprent.EXPRENT_VAR) { // qualified this
           VarExprent var = (VarExprent)exsource.getValue();
@@ -374,7 +374,7 @@ public class NestedMemberAccess {
           retexprent = ret;
         }
       }
-      case FIELD_SET -> {
+      break; case FIELD_SET : {
         AssignmentExprent ret;
         if (source.type == Exprent.EXPRENT_EXIT) {
           ExitExprent extex = (ExitExprent)source;
@@ -399,8 +399,8 @@ public class NestedMemberAccess {
 
         retexprent = ret;
       }
-      case FUNCTION -> retexprent = replaceFunction(invexpr, source);
-      case METHOD -> {
+      break; case FUNCTION : retexprent = replaceFunction(invexpr, source);
+      break; case METHOD : {
         if (source.type == Exprent.EXPRENT_EXIT) {
           source = ((ExitExprent)source).getValue();
         }

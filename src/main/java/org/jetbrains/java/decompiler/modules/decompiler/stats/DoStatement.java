@@ -66,14 +66,14 @@ public final class DoStatement extends Statement {
       tracer.incrementCurrentSourceLine();
     }
     switch (loopType) {
-      case DO -> {
+      break; case DO : {
         buf.appendIndent(indent).append("while(true) {").appendLineSeparator();
         tracer.incrementCurrentSourceLine();
         buf.append(ExprProcessor.jmpWrapper(first, indent + 1, false, tracer));
         buf.appendIndent(indent).append("}").appendLineSeparator();
         tracer.incrementCurrentSourceLine();
       }
-      case DO_WHILE -> {
+      break; case DO_WHILE : {
         buf.appendIndent(indent).append("do {").appendLineSeparator();
         tracer.incrementCurrentSourceLine();
         buf.append(ExprProcessor.jmpWrapper(first, indent + 1, false, tracer));
@@ -81,7 +81,7 @@ public final class DoStatement extends Statement {
           Objects.requireNonNull(conditionExprent.get(0)).toJava(indent, tracer)).append(");").appendLineSeparator();
         tracer.incrementCurrentSourceLine();
       }
-      case WHILE -> {
+      break; case WHILE : {
         buf.appendIndent(indent).append("while(").append(
           Objects.requireNonNull(conditionExprent.get(0)).toJava(indent, tracer)).append(") {").appendLineSeparator();
         tracer.incrementCurrentSourceLine();
@@ -89,7 +89,7 @@ public final class DoStatement extends Statement {
         buf.appendIndent(indent).append("}").appendLineSeparator();
         tracer.incrementCurrentSourceLine();
       }
-      case FOR -> {
+      break; case FOR : {
         buf.appendIndent(indent).append("for(");
         Exprent firstInitExprent = initExprent.get(0);
         if (firstInitExprent != null) {
@@ -122,8 +122,8 @@ public final class DoStatement extends Statement {
     }
     lst.add(first);
     switch (loopType) {
-      case DO_WHILE -> lst.add(getConditionExprent());
-      case FOR -> lst.add(getIncExprent());
+      break; case DO_WHILE : lst.add(getConditionExprent());
+      break; case FOR : lst.add(getIncExprent());
     }
     return lst;
   }

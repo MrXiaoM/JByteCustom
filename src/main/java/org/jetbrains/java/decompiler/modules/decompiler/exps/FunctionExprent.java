@@ -225,7 +225,7 @@ public class FunctionExprent extends Exprent {
 
       switch (funcType) {
         case FUNCTION_IMM, FUNCTION_MMI, FUNCTION_IPP, FUNCTION_PPI -> exprType = implicitType;
-        case FUNCTION_BOOL_NOT -> exprType = VarType.VARTYPE_BOOLEAN;
+        break; case FUNCTION_BOOL_NOT : exprType = VarType.VARTYPE_BOOLEAN;
         case FUNCTION_SHL, FUNCTION_SHR, FUNCTION_USHR, FUNCTION_BIT_NOT, FUNCTION_NEG -> exprType = getMaxVarType(new VarType[]{type1});
         case FUNCTION_ADD, FUNCTION_SUB, FUNCTION_MUL, FUNCTION_DIV, FUNCTION_REM -> exprType = getMaxVarType(new VarType[]{type1, type2});
         case FUNCTION_AND, FUNCTION_OR, FUNCTION_XOR -> {
@@ -435,12 +435,12 @@ public class FunctionExprent extends Exprent {
     }
 
     return switch (funcType) {
-      case FUNCTION_BIT_NOT -> wrapOperandString(lstOperands.get(0), true, indent, tracer).prepend("~");
-      case FUNCTION_BOOL_NOT -> wrapOperandString(lstOperands.get(0), true, indent, tracer).prepend("!");
-      case FUNCTION_NEG -> wrapOperandString(lstOperands.get(0), true, indent, tracer).prepend("-");
-      case FUNCTION_CAST -> lstOperands.get(1).toJava(indent, tracer).enclose("(", ")")
+      break; case FUNCTION_BIT_NOT : wrapOperandString(lstOperands.get(0), true, indent, tracer).prepend("~");
+      break; case FUNCTION_BOOL_NOT : wrapOperandString(lstOperands.get(0), true, indent, tracer).prepend("!");
+      break; case FUNCTION_NEG : wrapOperandString(lstOperands.get(0), true, indent, tracer).prepend("-");
+      break; case FUNCTION_CAST : lstOperands.get(1).toJava(indent, tracer).enclose("(", ")")
         .append(wrapOperandString(lstOperands.get(0), true, indent, tracer));
-      case FUNCTION_ARRAY_LENGTH -> {
+      break; case FUNCTION_ARRAY_LENGTH : {
         Exprent arr = lstOperands.get(0);
         TextBuffer res = wrapOperandString(arr, false, indent, tracer);
         if (arr.getExprType().getArrayDim() == 0) {
@@ -449,38 +449,38 @@ public class FunctionExprent extends Exprent {
         }
         yield res.append(".length");
       }
-      case FUNCTION_IIF -> wrapOperandString(lstOperands.get(0), true, indent, tracer)
+      break; case FUNCTION_IIF : wrapOperandString(lstOperands.get(0), true, indent, tracer)
         .append(" ? ")
         .append(wrapOperandString(lstOperands.get(1), true, indent, tracer))
         .append(" : ")
         .append(wrapOperandString(lstOperands.get(2), true, indent, tracer));
-      case FUNCTION_IPP -> wrapOperandString(lstOperands.get(0), true, indent, tracer).append("++");
-      case FUNCTION_PPI -> wrapOperandString(lstOperands.get(0), true, indent, tracer).prepend("++");
-      case FUNCTION_IMM -> wrapOperandString(lstOperands.get(0), true, indent, tracer).append("--");
-      case FUNCTION_MMI -> wrapOperandString(lstOperands.get(0), true, indent, tracer).prepend("--");
-      case FUNCTION_INSTANCEOF -> wrapOperandString(lstOperands.get(0), true, indent, tracer).append(" instanceof ")
+      break; case FUNCTION_IPP : wrapOperandString(lstOperands.get(0), true, indent, tracer).append("++");
+      break; case FUNCTION_PPI : wrapOperandString(lstOperands.get(0), true, indent, tracer).prepend("++");
+      break; case FUNCTION_IMM : wrapOperandString(lstOperands.get(0), true, indent, tracer).append("--");
+      break; case FUNCTION_MMI : wrapOperandString(lstOperands.get(0), true, indent, tracer).prepend("--");
+      break; case FUNCTION_INSTANCEOF : wrapOperandString(lstOperands.get(0), true, indent, tracer).append(" instanceof ")
         .append(wrapOperandString(lstOperands.get(1), true, indent, tracer));
-      case FUNCTION_LCMP -> // shouldn't appear in the final code
+      break; case FUNCTION_LCMP : // shouldn't appear in the final code
         wrapOperandString(lstOperands.get(0), true, indent, tracer).prepend("__lcmp__(")
           .append(", ")
           .append(wrapOperandString(lstOperands.get(1), true, indent, tracer))
           .append(")");
-      case FUNCTION_FCMPL -> // shouldn't appear in the final code
+      break; case FUNCTION_FCMPL : // shouldn't appear in the final code
         wrapOperandString(lstOperands.get(0), true, indent, tracer).prepend("__fcmpl__(")
           .append(", ")
           .append(wrapOperandString(lstOperands.get(1), true, indent, tracer))
           .append(")");
-      case FUNCTION_FCMPG -> // shouldn't appear in the final code
+      break; case FUNCTION_FCMPG : // shouldn't appear in the final code
         wrapOperandString(lstOperands.get(0), true, indent, tracer).prepend("__fcmpg__(")
           .append(", ")
           .append(wrapOperandString(lstOperands.get(1), true, indent, tracer))
           .append(")");
-      case FUNCTION_DCMPL -> // shouldn't appear in the final code
+      break; case FUNCTION_DCMPL : // shouldn't appear in the final code
         wrapOperandString(lstOperands.get(0), true, indent, tracer).prepend("__dcmpl__(")
           .append(", ")
           .append(wrapOperandString(lstOperands.get(1), true, indent, tracer))
           .append(")");
-      case FUNCTION_DCMPG -> // shouldn't appear in the final code
+      break; case FUNCTION_DCMPG : // shouldn't appear in the final code
         wrapOperandString(lstOperands.get(0), true, indent, tracer).prepend("__dcmpg__(")
           .append(", ")
           .append(wrapOperandString(lstOperands.get(1), true, indent, tracer))

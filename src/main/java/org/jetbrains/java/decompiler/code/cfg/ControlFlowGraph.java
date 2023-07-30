@@ -312,7 +312,7 @@ public class ControlFlowGraph implements CodeConstants {
           bTemp = mapInstrBlocks.get(dest);
           block.addSuccessor(bTemp);
         }
-        case GROUP_SWITCH : {
+        break; case GROUP_SWITCH :{
           SwitchInstruction sinstr = (SwitchInstruction)instr;
           int[] dests = sinstr.getDestinations();
 
@@ -394,7 +394,7 @@ public class ControlFlowGraph implements CodeConstants {
 
           switch (node.getSeq().getLastInstr().opcode) {
             case CodeConstants.opc_jsr : jsrstack.add(node);
-            case CodeConstants.opc_ret : {
+            break; case CodeConstants.opc_ret :{
               BasicBlock enter = jsrstack.getLast();
               BasicBlock exit = blocks.getWithKey(enter.id + 1); // FIXME: find successor in a better way
 

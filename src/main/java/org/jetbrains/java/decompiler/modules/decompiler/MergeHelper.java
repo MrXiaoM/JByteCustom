@@ -43,7 +43,7 @@ public final class MergeHelper {
     LoopType oldLoop = stat.getLoopType();
 
     switch (oldLoop) {
-      case DO -> {
+      break; case DO : {
 
         // identify a while loop
         if (matchWhile(stat)) {
@@ -55,7 +55,7 @@ public final class MergeHelper {
           matchDoWhile(stat);
         }
       }
-      case WHILE -> matchFor(stat);
+      break; case WHILE : matchFor(stat);
     }
 
     return (stat.getLoopType() != oldLoop);

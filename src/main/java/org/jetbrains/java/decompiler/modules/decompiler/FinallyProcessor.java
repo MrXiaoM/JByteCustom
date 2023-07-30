@@ -126,8 +126,8 @@ public class FinallyProcessor {
     Instruction instrFirst = firstBasicBlock.getInstruction(0);
 
     int firstCode = switch (instrFirst.opcode) {
-      case CodeConstants.opc_pop -> 1;
-      case CodeConstants.opc_astore -> 2;
+      break; case CodeConstants.opc_pop : 1;
+      break; case CodeConstants.opc_astore : 2;
       default -> 0;
     };
 
@@ -267,9 +267,9 @@ public class FinallyProcessor {
       InstructionSequence seq = firstBasicBlock.getSeq();
 
       boolean isEmpty = switch (firstCode) {
-        case 0 -> isFirstLast && seq.length() == 1;
-        case 1 -> seq.length() == 1;
-        case 2 -> isFirstLast ? seq.length() == 3 : seq.length() == 1;
+        break; case 0 : isFirstLast && seq.length() == 1;
+        break; case 1 : seq.length() == 1;
+        break; case 2 : isFirstLast ? seq.length() == 3 : seq.length() == 1;
         default -> false;
       };
 

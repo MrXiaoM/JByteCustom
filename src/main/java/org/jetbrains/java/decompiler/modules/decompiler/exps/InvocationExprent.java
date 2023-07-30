@@ -72,11 +72,11 @@ public class InvocationExprent extends Exprent {
     className = cn.classname;
     this.bootstrapArguments = bootstrapArguments;
     switch (opcode) {
-      case CodeConstants.opc_invokestatic -> invocationType = INVOKE_STATIC;
-      case CodeConstants.opc_invokespecial -> invocationType = INVOKE_SPECIAL;
-      case CodeConstants.opc_invokevirtual -> invocationType = INVOKE_VIRTUAL;
-      case CodeConstants.opc_invokeinterface -> invocationType = INVOKE_INTERFACE;
-      case CodeConstants.opc_invokedynamic -> {
+      break; case CodeConstants.opc_invokestatic : invocationType = INVOKE_STATIC;
+      break; case CodeConstants.opc_invokespecial : invocationType = INVOKE_SPECIAL;
+      break; case CodeConstants.opc_invokevirtual : invocationType = INVOKE_VIRTUAL;
+      break; case CodeConstants.opc_invokeinterface : invocationType = INVOKE_INTERFACE;
+      break; case CodeConstants.opc_invokedynamic : {
         invocationType = INVOKE_DYNAMIC;
 
         className = "java/lang/Class"; // dummy class name
@@ -283,7 +283,7 @@ public class InvocationExprent extends Exprent {
     }
 
     switch (funcType) {
-      case TYPE_GENERAL -> {
+      break; case TYPE_GENERAL : {
         if (VarExprent.VAR_NAMELESS_ENCLOSURE.equals(buf.toString())) {
           buf = new TextBuffer();
         }
@@ -298,8 +298,8 @@ public class InvocationExprent extends Exprent {
         }
         buf.append("(");
       }
-      case TYPE_CLINIT -> throw new RuntimeException("Explicit invocation of " + CodeConstants.CLINIT_NAME);
-      case TYPE_INIT -> {
+      break; case TYPE_CLINIT : throw new RuntimeException("Explicit invocation of " + CodeConstants.CLINIT_NAME);
+      break; case TYPE_INIT : {
         if (super_qualifier != null) {
           buf.append("super(");
         }
@@ -420,14 +420,14 @@ public class InvocationExprent extends Exprent {
   // TODO: move to CodeConstants ???
   private static String getClassNameForPrimitiveType(int type) {
     return switch (type) {
-      case CodeConstants.TYPE_BOOLEAN -> "java/lang/Boolean";
+      break; case CodeConstants.TYPE_BOOLEAN : "java/lang/Boolean";
       case CodeConstants.TYPE_BYTE, CodeConstants.TYPE_BYTECHAR -> "java/lang/Byte";
-      case CodeConstants.TYPE_CHAR -> "java/lang/Character";
+      break; case CodeConstants.TYPE_CHAR : "java/lang/Character";
       case CodeConstants.TYPE_SHORT, CodeConstants.TYPE_SHORTCHAR -> "java/lang/Short";
-      case CodeConstants.TYPE_INT -> "java/lang/Integer";
-      case CodeConstants.TYPE_LONG -> "java/lang/Long";
-      case CodeConstants.TYPE_FLOAT -> "java/lang/Float";
-      case CodeConstants.TYPE_DOUBLE -> "java/lang/Double";
+      break; case CodeConstants.TYPE_INT : "java/lang/Integer";
+      break; case CodeConstants.TYPE_LONG : "java/lang/Long";
+      break; case CodeConstants.TYPE_FLOAT : "java/lang/Float";
+      break; case CodeConstants.TYPE_DOUBLE : "java/lang/Double";
       default -> null;
     };
   }

@@ -117,15 +117,15 @@ public class MatchEngine {
           }
 
           value = switch (property) {
-            case STATEMENT_TYPE -> stat_type.get(strValue);
+            break; case STATEMENT_TYPE : stat_type.get(strValue);
             case STATEMENT_STATSIZE, STATEMENT_EXPRSIZE -> Integer.valueOf(strValue);
             case STATEMENT_POSITION, EXPRENT_POSITION, EXPRENT_INVOCATION_CLASS, EXPRENT_INVOCATION_SIGNATURE, EXPRENT_INVOCATION_PARAMETER, EXPRENT_VAR_INDEX, EXPRENT_FIELD_NAME, EXPRENT_CONSTVALUE, STATEMENT_RET, EXPRENT_RET ->
               strValue;
-            case STATEMENT_IFTYPE -> stat_if_type.get(strValue);
-            case EXPRENT_FUNCTYPE -> expr_func_type.get(strValue);
-            case EXPRENT_EXITTYPE -> expr_exit_type.get(strValue);
-            case EXPRENT_CONSTTYPE -> expr_const_type.get(strValue);
-            case EXPRENT_TYPE -> expr_type.get(strValue);
+            break; case STATEMENT_IFTYPE : stat_if_type.get(strValue);
+            break; case EXPRENT_FUNCTYPE : expr_func_type.get(strValue);
+            break; case EXPRENT_EXITTYPE : expr_exit_type.get(strValue);
+            break; case EXPRENT_CONSTTYPE : expr_const_type.get(strValue);
+            break; case EXPRENT_TYPE : expr_type.get(strValue);
           };
 
           matchNode.addRule(property, new RuleValue(parameter, value));

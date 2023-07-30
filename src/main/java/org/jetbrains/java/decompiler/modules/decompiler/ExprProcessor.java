@@ -1,6 +1,8 @@
 // Copyright 2000-2022 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.
 package org.jetbrains.java.decompiler.modules.decompiler;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.jetbrains.java.decompiler.code.CodeConstants;
 import org.jetbrains.java.decompiler.code.Instruction;
 import org.jetbrains.java.decompiler.code.InstructionSequence;
@@ -40,11 +42,12 @@ public class ExprProcessor implements CodeConstants {
   public static final String UNKNOWN_TYPE_STRING = "<unknown>";
   public static final String NULL_TYPE_STRING = "<null>";
 
-  private static final Map<Integer, Integer> functionMap = Map.of(
-    opc_arraylength, FunctionExprent.FUNCTION_ARRAY_LENGTH,
-    opc_checkcast, FunctionExprent.FUNCTION_CAST,
-    opc_instanceof, FunctionExprent.FUNCTION_INSTANCEOF
-  );
+  private static final Map<Integer, Integer> functionMap = new HashMap<>();
+  static {
+    functionMap.put(opc_arraylength, FunctionExprent.FUNCTION_ARRAY_LENGTH)
+    functionMap.put(opc_checkcast, FunctionExprent.FUNCTION_CAST)
+    functionMap.put(opc_instanceof, FunctionExprent.FUNCTION_INSTANCEOF)
+  }
 
   private static final VarType[] constants = {
     VarType.VARTYPE_INT, VarType.VARTYPE_FLOAT, VarType.VARTYPE_LONG, VarType.VARTYPE_DOUBLE, VarType.VARTYPE_CLASS, VarType.VARTYPE_STRING
@@ -593,7 +596,12 @@ public class ExprProcessor implements CodeConstants {
     InstructionSequence seq = block.getSeq();
     while (++index < seq.length()) {
       switch (seq.getInstr(index).opcode) {
-        case opc_nop, opc_istore, opc_lstore, opc_fstore, opc_dstore, opc_astore -> {
+        case opc_nop:
+        case opc_istore:
+        case opc_lstore:
+        case opc_fstore:
+        case opc_dstore:
+        case opc_astore : {
           continue;
         }
       }
@@ -760,12 +768,12 @@ public class ExprProcessor implements CodeConstants {
     ClassesProcessor.ClassNode enclosingClass = (ClassesProcessor.ClassNode) DecompilerContext.getProperty(
       DecompilerContext.CURRENT_CLASS_NODE
     );
-    List<ClassesProcessor.ClassNode> enclosingClassList = new ArrayList<>(List.of(enclosingClass));
+    List<ClassesProcessor.ClassNode> enclosingClassList = new ArrayList<>(Lists.(enclosingClass));
     while (enclosingClass.parent != null) {
       enclosingClass = enclosingClass.parent;
       enclosingClassList.add(0, enclosingClass);
     }
-    return enclosingClassList.stream()
+    return enclosingClassList.stream()functionMap.put(
       .filter(classNode -> classNode.type != ClassesProcessor.ClassNode.CLASS_ANONYMOUS &&
                            classNode.type != ClassesProcessor.ClassNode.CLASS_LAMBDA
       ).collect(Collectors.toList());

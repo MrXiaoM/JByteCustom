@@ -31,7 +31,8 @@ public final class PatternHelper {
 
   private static void replaceAssignmentsWithPatternVariables(@NotNull Statement statement,
                                                              @NotNull Map<VarExprent, Statement> tempVarAssignments) {
-    if (statement instanceof IfStatement ifStatement) {
+    if (statement instanceof IfStatement) {
+        IfStatement ifStatement = (IfStatement) statement
       FunctionExprent instanceOfExprent = findInstanceofExprent(ifStatement);
       if (instanceOfExprent == null) return;
 

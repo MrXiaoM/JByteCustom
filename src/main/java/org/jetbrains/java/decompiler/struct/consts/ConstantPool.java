@@ -38,18 +38,18 @@ public class ConstantPool implements NewClassNameBuilder {
       byte tag = (byte)in.readUnsignedByte();
 
       switch (tag) {
-        case CodeConstants.CONSTANT_Utf8 ->
+        break; case CodeConstants.CONSTANT_Utf8 :
           pool.add(new PrimitiveConstant(CodeConstants.CONSTANT_Utf8, in.readUTF()));
-        case CodeConstants.CONSTANT_Integer ->
+        break; case CodeConstants.CONSTANT_Integer :
           pool.add(new PrimitiveConstant(CodeConstants.CONSTANT_Integer, Integer.valueOf(in.readInt())));
-        case CodeConstants.CONSTANT_Float ->
+        break; case CodeConstants.CONSTANT_Float :
           pool.add(new PrimitiveConstant(CodeConstants.CONSTANT_Float, in.readFloat()));
-        case CodeConstants.CONSTANT_Long -> {
+        break; case CodeConstants.CONSTANT_Long : {
           pool.add(new PrimitiveConstant(CodeConstants.CONSTANT_Long, in.readLong()));
           pool.add(null);
           i++;
         }
-        case CodeConstants.CONSTANT_Double -> {
+        break; case CodeConstants.CONSTANT_Double : {
           pool.add(new PrimitiveConstant(CodeConstants.CONSTANT_Double, in.readDouble()));
           pool.add(null);
           i++;
@@ -58,7 +58,7 @@ public class ConstantPool implements NewClassNameBuilder {
           pool.add(new PrimitiveConstant(tag, in.readUnsignedShort()));
           nextPass[0].set(i);
         }
-        case CodeConstants.CONSTANT_NameAndType -> {
+        break; case CodeConstants.CONSTANT_NameAndType : {
           pool.add(new LinkConstant(tag, in.readUnsignedShort(), in.readUnsignedShort()));
           nextPass[0].set(i);
         }
@@ -66,7 +66,7 @@ public class ConstantPool implements NewClassNameBuilder {
           pool.add(new LinkConstant(tag, in.readUnsignedShort(), in.readUnsignedShort()));
           nextPass[1].set(i);
         }
-        case CodeConstants.CONSTANT_MethodHandle -> {
+        break; case CodeConstants.CONSTANT_MethodHandle : {
           pool.add(new LinkConstant(tag, in.readUnsignedByte(), in.readUnsignedShort()));
           nextPass[2].set(i);
         }
@@ -95,7 +95,7 @@ public class ConstantPool implements NewClassNameBuilder {
 
     for (int i = 1; i < size; i++) {
       switch (in.readUnsignedByte()) {
-        case CodeConstants.CONSTANT_Utf8 -> in.readUTF();
+        break; case CodeConstants.CONSTANT_Utf8 : in.readUTF();
         case CodeConstants.CONSTANT_Integer, CodeConstants.CONSTANT_Float, CodeConstants.CONSTANT_Fieldref, CodeConstants.CONSTANT_Methodref, CodeConstants.CONSTANT_InterfaceMethodref, CodeConstants.CONSTANT_NameAndType, CodeConstants.CONSTANT_Dynamic, CodeConstants.CONSTANT_InvokeDynamic ->
           in.discard(4);
         case CodeConstants.CONSTANT_Long, CodeConstants.CONSTANT_Double -> {
@@ -103,7 +103,7 @@ public class ConstantPool implements NewClassNameBuilder {
           i++;
         }
         case CodeConstants.CONSTANT_Class, CodeConstants.CONSTANT_String, CodeConstants.CONSTANT_MethodType -> in.discard(2);
-        case CodeConstants.CONSTANT_MethodHandle -> in.discard(3);
+        break; case CodeConstants.CONSTANT_MethodHandle : in.discard(3);
       }
     }
   }

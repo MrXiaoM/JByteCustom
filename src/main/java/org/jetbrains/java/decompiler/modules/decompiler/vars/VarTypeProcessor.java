@@ -136,7 +136,7 @@ public class VarTypeProcessor {
     if (exprent.type == Exprent.EXPRENT_FUNCTION) {
       FunctionExprent functionExprent = (FunctionExprent)exprent;
       switch (functionExprent.getFuncType()) {
-        case FunctionExprent.FUNCTION_IIF -> {   // FIXME:
+        break; case FunctionExprent.FUNCTION_IIF : {   // FIXME:
           return changeExprentType(functionExprent.getLstOperands().get(1), newType, checkMinExprentType) &
                  changeExprentType(functionExprent.getLstOperands().get(2), newType, checkMinExprentType);
         }

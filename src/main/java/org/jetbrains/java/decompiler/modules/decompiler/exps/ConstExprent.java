@@ -133,8 +133,8 @@ public class ConstExprent extends Exprent {
     }
 
     return switch (constType.getType()) {
-      case CodeConstants.TYPE_BOOLEAN -> new TextBuffer(Boolean.toString((Integer)value != 0));
-      case CodeConstants.TYPE_CHAR -> {
+      break; case CodeConstants.TYPE_BOOLEAN : new TextBuffer(Boolean.toString((Integer)value != 0));
+      break; case CodeConstants.TYPE_CHAR : {
         Integer val = (Integer)value;
         String ret = CHAR_ESCAPES.get(val);
         if (ret == null) {
@@ -148,7 +148,7 @@ public class ConstExprent extends Exprent {
         }
         yield new TextBuffer(ret).enclose("'", "'");
       }
-      case CodeConstants.TYPE_BYTE -> new TextBuffer(value.toString());
+      break; case CodeConstants.TYPE_BYTE : new TextBuffer(value.toString());
       case CodeConstants.TYPE_BYTECHAR, CodeConstants.TYPE_SHORT -> {
         int shortVal = (Integer)value;
         if (!literal) {
@@ -173,7 +173,7 @@ public class ConstExprent extends Exprent {
         }
         yield new TextBuffer(value.toString());
       }
-      case CodeConstants.TYPE_LONG -> {
+      break; case CodeConstants.TYPE_LONG : {
         long longVal = (Long)value;
         if (!literal) {
           if (longVal == Long.MAX_VALUE && !inConstantVariable(LONG_SIG, MAX_VAL)) {
@@ -185,7 +185,7 @@ public class ConstExprent extends Exprent {
         }
         yield new TextBuffer(value.toString()).append('L');
       }
-      case CodeConstants.TYPE_FLOAT -> {
+      break; case CodeConstants.TYPE_FLOAT : {
         float floatVal = (Float)value;
         if (!literal) {
           if (Float.isNaN(floatVal) && !inConstantVariable(FLOAT_SIG, NAN)) {
@@ -218,7 +218,7 @@ public class ConstExprent extends Exprent {
         }
         yield new TextBuffer(value.toString()).append('F');
       }
-      case CodeConstants.TYPE_DOUBLE -> {
+      break; case CodeConstants.TYPE_DOUBLE : {
         double doubleVal = (Double)value;
         if (!literal) {
           if (Double.isNaN(doubleVal) && !inConstantVariable(DOUBLE_SIG, NAN)) {
@@ -257,8 +257,8 @@ public class ConstExprent extends Exprent {
         }
         yield new TextBuffer(value.toString());
       }
-      case CodeConstants.TYPE_NULL -> new TextBuffer("null");
-      case CodeConstants.TYPE_OBJECT -> {
+      break; case CodeConstants.TYPE_NULL : new TextBuffer("null");
+      break; case CodeConstants.TYPE_OBJECT : {
         if (constType.equals(VarType.VARTYPE_STRING)) {
           yield new TextBuffer(convertStringToJava(value.toString(), ascii)).enclose("\"", "\"");
         }
@@ -292,17 +292,17 @@ public class ConstExprent extends Exprent {
       switch (c) {
         case '\\' -> //  u005c: backslash \
           buffer.append("\\\\");
-        case 0x8 -> // "\\\\b");  //  u0008: backspace BS
+        break; case 0x8 : // "\\\\b");  //  u0008: backspace BS
           buffer.append("\\b");
-        case 0x9 -> //"\\\\t");  //  u0009: horizontal tab HT
+        break; case 0x9 : //"\\\\t");  //  u0009: horizontal tab HT
           buffer.append("\\t");
-        case 0xA -> //"\\\\n");  //  u000a: linefeed LF
+        break; case 0xA : //"\\\\n");  //  u000a: linefeed LF
           buffer.append("\\n");
-        case 0xC -> //"\\\\f");  //  u000c: form feed FF
+        break; case 0xC : //"\\\\f");  //  u000c: form feed FF
           buffer.append("\\f");
-        case 0xD -> //"\\\\r");  //  u000d: carriage return CR
+        break; case 0xD : //"\\\\r");  //  u000d: carriage return CR
           buffer.append("\\r");
-        case 0x22 -> //"\\\\\""); // u0022: double quote "
+        break; case 0x22 : //"\\\\\""); // u0022: double quote "
           buffer.append("\\\"");
 
         default -> {
@@ -352,19 +352,19 @@ public class ConstExprent extends Exprent {
       case CodeConstants.TYPE_BOOLEAN, CodeConstants.TYPE_CHAR, CodeConstants.TYPE_BYTE, CodeConstants.TYPE_BYTECHAR,
         CodeConstants.TYPE_SHORT, CodeConstants.TYPE_SHORTCHAR, CodeConstants.TYPE_INT ->
         (Integer)value == 1;
-      case CodeConstants.TYPE_LONG -> ((Long)value).intValue() == 1;
-      case CodeConstants.TYPE_DOUBLE -> ((Double)value).intValue() == 1;
-      case CodeConstants.TYPE_FLOAT -> ((Float)value).intValue() == 1;
+      break; case CodeConstants.TYPE_LONG : ((Long)value).intValue() == 1;
+      break; case CodeConstants.TYPE_DOUBLE : ((Double)value).intValue() == 1;
+      break; case CodeConstants.TYPE_FLOAT : ((Float)value).intValue() == 1;
       default -> false;
     };
   }
 
   public static ConstExprent getZeroConstant(int type) {
     return switch (type) {
-      case CodeConstants.TYPE_INT -> new ConstExprent(VarType.VARTYPE_INT, 0, null);
-      case CodeConstants.TYPE_LONG -> new ConstExprent(VarType.VARTYPE_LONG, 0L, null);
-      case CodeConstants.TYPE_DOUBLE -> new ConstExprent(VarType.VARTYPE_DOUBLE, 0d, null);
-      case CodeConstants.TYPE_FLOAT -> new ConstExprent(VarType.VARTYPE_FLOAT, 0f, null);
+      break; case CodeConstants.TYPE_INT : new ConstExprent(VarType.VARTYPE_INT, 0, null);
+      break; case CodeConstants.TYPE_LONG : new ConstExprent(VarType.VARTYPE_LONG, 0L, null);
+      break; case CodeConstants.TYPE_DOUBLE : new ConstExprent(VarType.VARTYPE_DOUBLE, 0d, null);
+      break; case CodeConstants.TYPE_FLOAT : new ConstExprent(VarType.VARTYPE_FLOAT, 0f, null);
       default -> throw new RuntimeException("Invalid argument: " + type);
     };
   }

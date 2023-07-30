@@ -139,7 +139,7 @@ public class SSAConstructorSparseEx {
     boolean finished = false;
 
     switch (expr.type) {
-      case Exprent.EXPRENT_ASSIGNMENT -> {
+      break; case Exprent.EXPRENT_ASSIGNMENT : {
         AssignmentExprent assexpr = (AssignmentExprent)expr;
         if (assexpr.getCondType() == AssignmentExprent.CONDITION_NONE) {
           Exprent dest = assexpr.getLeft();
@@ -148,10 +148,10 @@ public class SSAConstructorSparseEx {
           }
         }
       }
-      case Exprent.EXPRENT_FUNCTION -> {
+      break; case Exprent.EXPRENT_FUNCTION : {
         FunctionExprent func = (FunctionExprent)expr;
         switch (func.getFuncType()) {
-          case FunctionExprent.FUNCTION_IIF -> {
+          break; case FunctionExprent.FUNCTION_IIF : {
             processExprent(func.getLstOperands().get(0), varmaparr);
 
             SFormsFastMapDirect varmapFalse;
@@ -173,7 +173,7 @@ public class SSAConstructorSparseEx {
 
             finished = true;
           }
-          case FunctionExprent.FUNCTION_CADD -> {
+          break; case FunctionExprent.FUNCTION_CADD : {
             processExprent(func.getLstOperands().get(0), varmaparr);
 
             SFormsFastMapDirect[] varmaparrAnd = new SFormsFastMapDirect[]{new SFormsFastMapDirect(varmaparr[0]), null};
@@ -187,7 +187,7 @@ public class SSAConstructorSparseEx {
 
             finished = true;
           }
-          case FunctionExprent.FUNCTION_COR -> {
+          break; case FunctionExprent.FUNCTION_COR : {
             processExprent(func.getLstOperands().get(0), varmaparr);
 
             SFormsFastMapDirect[] varmaparrOr =

@@ -75,16 +75,16 @@ public class StructAnnotationAttribute extends StructGeneralAttribute {
         VarType type = FieldDescriptor.parseDescriptor(descriptor).type;
 
         String value = switch (type.getType()) {
-          case CodeConstants.TYPE_OBJECT -> type.getValue();
-          case CodeConstants.TYPE_BYTE -> byte.class.getName();
-          case CodeConstants.TYPE_CHAR -> char.class.getName();
-          case CodeConstants.TYPE_DOUBLE -> double.class.getName();
-          case CodeConstants.TYPE_FLOAT -> float.class.getName();
-          case CodeConstants.TYPE_INT -> int.class.getName();
-          case CodeConstants.TYPE_LONG -> long.class.getName();
-          case CodeConstants.TYPE_SHORT -> short.class.getName();
-          case CodeConstants.TYPE_BOOLEAN -> boolean.class.getName();
-          case CodeConstants.TYPE_VOID -> void.class.getName();
+          break; case CodeConstants.TYPE_OBJECT : type.getValue();
+          break; case CodeConstants.TYPE_BYTE : byte.class.getName();
+          break; case CodeConstants.TYPE_CHAR : char.class.getName();
+          break; case CodeConstants.TYPE_DOUBLE : double.class.getName();
+          break; case CodeConstants.TYPE_FLOAT : float.class.getName();
+          break; case CodeConstants.TYPE_INT : int.class.getName();
+          break; case CodeConstants.TYPE_LONG : long.class.getName();
+          break; case CodeConstants.TYPE_SHORT : short.class.getName();
+          break; case CodeConstants.TYPE_BOOLEAN : boolean.class.getName();
+          break; case CodeConstants.TYPE_VOID : void.class.getName();
           default -> throw new RuntimeException("invalid class type: " + type.getType());
         };
         return new ConstExprent(VarType.VARTYPE_CLASS, value, null);

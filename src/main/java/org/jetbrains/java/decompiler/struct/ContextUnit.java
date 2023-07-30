@@ -80,7 +80,7 @@ public class ContextUnit {
 
   public void save() {
     switch (type) {
-      case TYPE_FOLDER -> {
+      break; case TYPE_FOLDER : {
         // create folder
         resultSaver.saveFolder(filename);
 

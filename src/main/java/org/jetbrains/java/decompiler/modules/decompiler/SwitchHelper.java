@@ -58,7 +58,8 @@ public final class SwitchHelper {
   private static void collectSwitchesOnString(@NotNull Statement statement,
                                               @NotNull List<SwitchRecognizer> recognizers,
                                               @NotNull List<SwitchOnStringCandidate> candidates) {
-    if (statement instanceof SwitchStatement switchStatement) {
+    if (statement instanceof SwitchStatement) {
+        SwitchStatement switchStatement = (SwitchStatement) statement
       SwitchExprent switchExprent = (SwitchExprent)switchStatement.getHeadExprent();
       Exprent switchSelector = Objects.requireNonNull(switchExprent).getValue();
       if (switchSelector instanceof InvocationExprent) {
@@ -92,7 +93,8 @@ public final class SwitchHelper {
       MethodWrapper wrapper = classNode.getWrapper().getMethodWrapper(CodeConstants.CLINIT_NAME, "()V");
       if (wrapper != null && wrapper.root != null) {
         wrapper.getOrBuildGraph().iterateExprents(exprent -> {
-          if (exprent instanceof AssignmentExprent assignment) {
+          if (exprent instanceof AssignmentExprent) {
+              AssignmentExprent assignment = (AssignmentExprent) exprent
             Exprent left = assignment.getLeft();
             if (left.type == Exprent.EXPRENT_ARRAY && ((ArrayExprent)left).getArray().equals(arrayField)) {
               mapping.put(assignment.getRight(), ((InvocationExprent)((ArrayExprent)left).getIndex()).getInstance());
@@ -109,7 +111,8 @@ public final class SwitchHelper {
       MethodWrapper wrapper = classNode.getWrapper().getMethodWrapper(invocationExprent.getName(), "()[I");
       if (wrapper != null && wrapper.root != null) {
         wrapper.getOrBuildGraph().iterateExprents(exprent -> {
-          if (exprent instanceof AssignmentExprent assignment) {
+          if (exprent instanceof AssignmentExprent) {
+              AssignmentExprent assignment = (AssignmentExprent) exprent
             Exprent left = assignment.getLeft();
             if (left.type == Exprent.EXPRENT_ARRAY) {
               Exprent indexExprent = ((ArrayExprent)left).getIndex();
